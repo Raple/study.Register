@@ -1,0 +1,2 @@
+D:\ETAO2\Code\easy.templates\projects\study.Register\study.Register.Api\bin\study.Register.Api.exe.config
+D:\SOA\build\study.Register\study.Register.Api\bin\study.Register.Api.exe.config

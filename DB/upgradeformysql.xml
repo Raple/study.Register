@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DBUpgrade>
+    <Settings>
+        <SettingSql>
+            INSERT INTO db_version(from_version,current_version,last_update_datetime) VALUES({0},{1},now());
+        </SettingSql>
+    </Settings>
+    <UpgradeSql version="2">
+        <Author>李晓静</Author>
+        <Memo>
+            初始化数据库
+        </Memo>
+        <Sql>
+            CREATE TABLE db_version ( id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, from_version INT NOT NULL, current_version INT NOT NULL, last_update_datetime DATETIME NOT NULL );
+        </Sql>
+    </UpgradeSql>
+	<UpgradeSql version="3">
+        <Author>李晓静</Author>
+        <Memo>
+            初始化数据库
+        </Memo>
+        <Sql ref="create.sql" />
+    </UpgradeSql>
+	<UpgradeSql version="4">
+        <Author>李晓静</Author>
+        <Memo>
+            增加字段
+        </Memo>
+        <Sql>
+		alter table regisrer_directory
+			add column directory_type tinyint;
+		</Sql>
+    </UpgradeSql>
+	<UpgradeSql version="5">
+        <Author>李晓静</Author>
+        <Memo>
+            增加字段
+        </Memo>
+        <Sql>
+		alter table register_node 
+			add column directory_name varchar(100) ;
+		</Sql>
+    </UpgradeSql>
+	<UpgradeSql version="6">
+        <Author>李晓静</Author>
+        <Memo>
+            增加字段
+        </Memo>
+        <Sql>
+		alter table register_relation
+			add column id int not null,
+			add column create_date datetime not null;
+		alter table register_relation 
+			modify id int auto_increment primary key;
+		</Sql>
+    </UpgradeSql>
+	<UpgradeSql version="7">
+        <Author>李晓静</Author>
+        <Memo>
+            增加用户表
+        </Memo>
+        <Sql>
+		CREATE TABLE `register_user` (
+			`id` int NOT NULL AUTO_INCREMENT,
+			`username` varchar(50) NOT NULL,
+			`name` varchar(50) NOT NULL,
+			`create_date` datetime NOT NULL,
+			`password` varchar(100) NULL,
+			PRIMARY KEY (`id`) 
+		);
+		</Sql>
+    </UpgradeSql>
+	<UpgradeSql version="8">
+        <Author>李晓静</Author>
+        <Memo>
+            增加md5列
+        </Memo>
+        <Sql>
+		alter table regisrer_directory
+			add column use_services_md5 varchar(32),
+			add column api_list_md5 varchar(32);
+		</Sql>
+    </UpgradeSql>
+	<UpgradeSql version="9">
+        <Author>李晓静</Author>
+        <Memo>
+            增加api表
+        </Memo>
+        <Sql>
+		CREATE TABLE `register_apis` (
+			`id` int NOT NULL AUTO_INCREMENT,
+			`api_name` varchar(100) NULL,
+			`directory_id` int NOT NULL,
+			PRIMARY KEY (`id`) 
+		);
+		</Sql>
+    </UpgradeSql>
+	<UpgradeSql version="10">
+        <Author>李晓静</Author>
+        <Memo>
+            api表增加directory_name
+        </Memo>
+        <Sql>
+		alter table register_apis
+			add column directory_name varchar(50);
+		</Sql>
+    </UpgradeSql>
+	<UpgradeSql version="11">
+        <Author>李晓静</Author>
+        <Memo>
+            增加服务提供者数量字段
+        </Memo>
+        <Sql>
+			alter table regisrer_directory
+			add column provider_node_count int default 0 comment '服务提供者数量';	
+		</Sql>
+    </UpgradeSql>
+ </DBUpgrade>
